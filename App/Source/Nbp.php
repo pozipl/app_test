@@ -5,7 +5,7 @@ namespace Excavator\Source;
 abstract class Nbp extends Source
 {
 	/**
-	 * Check config set in constructor
+	 * Check config set in the constructor
 	 * 
 	 * @param object $config
 	 * @throws Exception
@@ -30,14 +30,14 @@ abstract class Nbp extends Source
 		$url .= implode('/', $params) .'/';
 		$url .= '?format=json';
 
-		// if we need more control, option like ssl we can change to CURL
+		// if we need more control or options like ssl we can change to CURL
 		$result = @file_get_contents($url);
 
-		// check heder response
+		// check response heder
 		$httpCode = explode(' ', $http_response_header[0])[1];
 		if ($httpCode !== '200')
 		{
-			throw new Exception("NBP: conection error, http code: $httpCode");
+			throw new Exception("NBP: connection error, http code: $httpCode");
 		}
 		
 		return json_decode($result);
@@ -55,7 +55,7 @@ abstract class Nbp extends Source
 	{
 		if ($startDate > $endDate)
 		{
-			throw new Exception("NBP: start date is older from end date");
+			throw new Exception("NBP: start date is older then end date");
 		}
 		
 		$result = [];
@@ -68,19 +68,19 @@ abstract class Nbp extends Source
 		$maxEnd = $startDiffDay;
 
 		do {
-			$maxEnd += 367; // max deys in NBP
+			$maxEnd += 367; // max days in NBP
 			
 			if ($maxEnd > $endDiffDay)
 			{
 				$maxEnd = $endDiffDay;
 			}
 
-			// we can use only DateTime object but this is simple to debug
+			// we could use DateTime but this is simpler to debug
 			$maxStartDate = (new \DateTime())->modify("$maxStart day")->format('Y-m-d');
 			$maxEndDate = (new \DateTime())->modify("$maxEnd day")->format('Y-m-d');
 			
 			$resultApi = $this->_callApi($parmFun($maxStartDate, $maxEndDate));
-			$result = array_merge($result, $resultApi); // order merge has matter
+			$result = array_merge($result, $resultApi); // order merge matters
 			
 			$maxStart = $maxEnd + 1;
 			

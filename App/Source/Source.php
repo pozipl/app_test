@@ -7,7 +7,7 @@ abstract class Source
 	protected $_config = null;
 	
 	/**
-	 * Check config set in constructor
+	 * Check config set in the constructor
 	 * 
 	 * @param object $config
 	 * @throws Exception

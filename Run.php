@@ -13,12 +13,12 @@ $conf->api->nbp->url = 'http://api.nbp.pl/api/';
 
 if (version_compare(PHP_VERSION, '7.2.0') < 0) // script need PHP 7.2
 {
-	 echo "Your PHP version (". PHP_VERSION .") it's to old. Script need 7.2.3 version.\n";
+	 echo "Your PHP version (". PHP_VERSION .") it's too old. Script needs 7.2.3 version.\n";
 	 die;
 }
 elseif (version_compare(PHP_VERSION, '7.2.3') !== 0)
 {
-    echo "Your PHP version (". PHP_VERSION .") it's not 7.2.3 version, but maybe script will be work.\n";
+    echo "Your PHP version (". PHP_VERSION .") it's not 7.2.3 version, but script maybe will work.\n";
 }
 
 spl_autoload_register(function ($className) use ($conf)

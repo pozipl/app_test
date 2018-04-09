@@ -40,7 +40,19 @@ abstract class Nbp extends Source
 			throw new Exception("NBP: connection error, http code: $httpCode");
 		}
 		
-		return json_decode($result);
+		if ($result === false)
+		{
+			throw new Exception("NBP: connection error");
+		}
+		
+		$result = json_decode($result);
+		
+		if (is_array($result) === false)
+		{
+			throw new Exception("NBP: parss data error");
+		}
+		
+		return $result;
 	}
 	
 	/**
